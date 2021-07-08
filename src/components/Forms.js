@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { Form, Button, Image } from 'react-bootstrap'
 import AlertBox from './AlertBox'
+import Weather from './Weather'
 
 export class Forms extends Component {
 
@@ -13,6 +14,7 @@ export class Forms extends Component {
             display: false, 
             alert: false, 
             error: "", 
+            weatherData= [], 
         }
     }
     updateCity=(e)=>{
@@ -25,13 +27,14 @@ export class Forms extends Component {
      getData = async (e)=>{
          e.preventDefault(); 
          try {
-             const axiosData= await axios.get(`https://eu1.locationiq.com/v1/search.php?key=pk.91236cc3e8901fb78ab9cc83588e7780&q=${this.state.cityName}&format=json`);
-             console.log(axiosData); 
+             const axiosData= await axios.get(`https://eu1.locationiq.com/v1/search.php?key=pk.91236cc3e8901fb78ab9cc83588e7780&q=${this.state.cityName}&format=json`);    
+             const axiosLocalApi= await axios.get(`http://localhost:8000/weather?lat=31.95&lon=35.91&searchQuery=amman`)        
              this.setState({
                  cityData: axiosData.data[0], 
                  display: true, 
                  alert: false, 
-                 error: "Error! Enter correct city name! "
+                 error: "Error! Enter correct city name! ", 
+                 weatherData:axiosLocalApi.data, 
              })
          }
          catch(error){
@@ -41,6 +44,7 @@ export class Forms extends Component {
                 display: false, 
              })
          }
+         
      }
 
     render() {
@@ -65,6 +69,9 @@ export class Forms extends Component {
                   </p>
                 </div>
                 }
+                {this.state.weatherData.map(weatherData=>{
+                  return  <Weather desc= {weatherData.description} date= {weatherData.date} />
+                })}
             </div>
         )
     }

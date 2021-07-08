@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Forms } from './components/Forms';
-
-
+import {Weather} from './components/Weather'
 
 export class App extends Component {
+
+
   render() {
     return (
       <div>
