@@ -1,19 +1,17 @@
 import React, { Component } from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Forms } from './components/Forms';
-import {Weather} from './components/Weather'
+ import Main from './Main';
+ import Header from './Header'
+import Footer from './Footer';
 
-export class App extends Component {
-
-
+class App extends Component {
   render() {
     return (
       <div>
-        <header>
-          <h1>City Explorer</h1>
-        </header>
-        <Forms/>
-      </div>
+    
+       <Header/>
+       <Main/>
+       <Footer/>
+</div>
     )
   }
 }
